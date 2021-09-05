@@ -32,7 +32,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 
-
+var items = [];
 
 
 app.post("/getOTP",(req,res)=>{
@@ -63,6 +63,28 @@ app.post("/verifyOTP",(req,res)=>{
     res.json({
         message: "OTP Verified"
     })
+})
+
+app.get("/getItemList",(req, res)=>{
+
+  res.json({
+    message:"success",
+    data: items
+  });
+});
+
+app.post('/addItem',(req,res)=>{
+  var itemName = req.body.name;
+  var itemCost = req.body.cost;
+  items.push({
+    name: itemName,
+    cost: itemCost
+  })
+
+  res.json({
+    message:"success",
+    data: req.body
+  });
 })
 
 app.listen(3000,()=>{
